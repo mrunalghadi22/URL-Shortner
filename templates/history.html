@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}
+History | Shortly
+{% endblock %}
+
+{% block content %}
+
+<div class="history-container">
+
+    <div class="history-header">
+
+        <h1>URL History</h1>
+
+        <p>
+            Manage, search and organize all your shortened URLs.
+        </p>
+
+    </div>
+
+    <!-- Search -->
+
+    <form method="GET" class="search-box">
+
+        <input
+            type="text"
+            name="search"
+            value="{{ search if search else '' }}"
+            placeholder="Search by URL or short code...">
+
+        <button>
+
+            <i class="bi bi-search"></i>
+
+        </button>
+
+    </form>
+
+    {% if urls %}
+
+        {% for url in urls %}
+
+        <div class="history-card">
+
+            <div class="history-top">
+
+                <img
+                src="https://www.google.com/s2/favicons?domain={{ url.original_url }}&sz=64"
+                class="history-favicon">
+
+                <div>
+
+                    <h5>
+
+                        {{ url.original_url }}
+
+                    </h5>
+
+                    <a
+                    href="/{{ url.short_code }}"
+                    target="_blank">
+
+                        {{ request.host_url }}{{ url.short_code }}
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="history-bottom">
+
+                <span>
+
+                    👆 {{ url.clicks }} Clicks
+
+                </span>
+
+                <span>
+
+                    📅 {{ url.created_at.strftime("%d %b %Y") }}
+
+                </span>
+
+            </div>
+
+            <div class="history-actions">
+
+                <button
+                onclick="copyTopLink('{{ request.host_url }}{{ url.short_code }}')"
+                class="action-pill">
+
+                    <i class="bi bi-copy"></i>
+
+                    Copy
+
+                </button>
+
+                <a
+                href="/{{ url.short_code }}"
+                target="_blank"
+                class="action-pill">
+
+                    <i class="bi bi-box-arrow-up-right"></i>
+
+                    Visit
+
+                </a>
+
+                <button
+                onclick="openDeleteModal('/delete/{{ url.id }}')"
+                class="action-pill delete">
+
+                    <i class="bi bi-trash"></i>
+
+                    Delete
+
+                </button>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+    <div class="empty-state">
+
+        <i class="bi bi-link-45deg"></i>
+
+        <h3>No URLs Found</h3>
+
+        <p>
+            Start shortening your first link.
+        </p>
+
+        <a href="/" class="generate-btn">
+
+            Create URL
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Shortly | Smart URL Shortener{% endblock %}
+
+{% block content %}
+
+<section class="hero-section">
+
+    <div class="hero-content">
+
+        <span class="hero-chip">
+            ✨ Modern URL Management
+        </span>
+
+        <h1 class="hero-title">
+
+            Shorten Your Links.
+
+            <span>Share Smarter.</span>
+
+        </h1>
+
+        <p class="hero-subtitle">
+
+            Transform long URLs into beautiful, memorable links with
+            analytics, QR codes and lightning-fast redirects.
+
+        </p>
+
+    </div>
+
+    <div class="hero-card">
+
+        <form method="POST">
+
+            <div class="input-group-custom">
+
+                <label>
+
+                    🔗 Long URL
+
+                </label>
+
+                <input
+                    type="url"
+                    name="original_url"
+                    placeholder="https://example.com/my-very-long-url"
+                    required>
+
+            </div>
+
+            <div class="input-group-custom">
+
+                <label>
+
+                    🏷 Custom Alias
+
+                </label>
+
+                <input
+                    type="text"
+                    name="custom_code"
+                    placeholder="portfolio">
+
+            </div>
+
+            <button class="generate-btn">
+
+                Generate Short URL
+
+                <span>→</span>
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- <div class="hero-features">
+
+        <div class="feature">
+
+            ⚡
+
+            <span>Lightning Fast</span>
+
+        </div>
+
+        <div class="feature">
+
+            🔒
+
+            <span>Secure</span>
+
+        </div>
+
+        <div class="feature">
+
+            📊
+
+            <span>Analytics</span>
+
+        </div>
+
+        <div class="feature">
+
+            📱
+
+            <span>QR Code</span>
+
+        </div>
+
+    </div> -->
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "base.html" %} {% block title %} Shortly | URL Created {% endblock %}
+{% block content %}
+
+<section class="result-section">
+  <div class="success-circle">
+    <i class="bi bi-check-lg"></i>
+  </div>
+
+  <h1 class="result-title">Your Short URL is Ready!</h1>
+
+  <p class="result-subtitle">Share it anywhere or download its QR code.</p>
+
+  <div class="result-card">
+    <label> Short URL </label>
+
+    <div class="result-url">
+      <input id="shortURL" type="text" readonly value="{{ short_url }}" />
+
+      <button onclick="copyURL()">
+        <i class="bi bi-copy"></i>
+
+        Copy
+      </button>
+    </div>
+
+    {% if qr_image %}
+
+    <!-- ================= QR CARD ================= -->
+
+    <div class="qr-wrapper">
+      <div class="qr-glass-card">
+        <div class="qr-header">
+          <i class="bi bi-qr-code"></i>
+
+          <h4>QR Code</h4>
+        </div>
+
+        <p class="qr-text">
+          Scan this QR code with your phone to instantly open your shortened
+          URL.
+        </p>
+
+        <div class="qr-box">
+          <img src="{{ qr_image }}" alt="QR Code" class="qr-image" />
+        </div>
+
+        <a
+          href="{{ qr_code }}"
+          download="shortly_qrcode.png"
+          class="download-btn"
+        >
+          <i class="bi bi-download"></i>
+
+          Download QR Code
+        </a>
+      </div>
+    </div>
+
+    {% endif %}
+
+    <div class="action-buttons">
+      <a href="/" class="secondary-btn"> Create Another </a>
+
+      <a href="/dashboard" class="secondary-btn"> Dashboard </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

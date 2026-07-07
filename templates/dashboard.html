@@ -1,0 +1,133 @@
+{% extends "base.html" %} {% block title %} Dashboard | Shortly {% endblock %}
+{% block content %}
+
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Dashboard</h1>
+
+    <p>Monitor your shortened URLs and their performance.</p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stats-card">
+      <i class="bi bi-link-45deg"></i>
+
+      <h2>{{ total_urls }}</h2>
+
+      <span>Total URLs</span>
+    </div>
+
+    <div class="stats-card">
+      <i class="bi bi-mouse"></i>
+
+      <h2>{{ total_clicks }}</h2>
+
+      <span>Total Clicks</span>
+    </div>
+
+    <div class="stats-card">
+      <i class="bi bi-calendar-event"></i>
+
+      <h2>{{ today_urls }}</h2>
+
+      <span>Today's URLs</span>
+    </div>
+
+    <!-- <div class="stats-card">
+      <i class="bi bi-star-fill"></i>
+
+      <h2>
+        {% if most_clicked %} {{ most_clicked.short_code }} {% else %} - {%
+        endif %}
+      </h2>
+
+      <span>Top URL</span>
+    </div> -->
+  </div>
+
+  <div class="table-card">
+    <div class="table-header">
+      <h3>Recent URLs</h3>
+    </div>
+
+    <div class="table-responsive">
+      <table class="dashboard-table">
+        <thead>
+          <tr>
+            <th>Original URL</th>
+
+            <th>Short URL</th>
+
+            <th>Clicks</th>
+
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for url in recent_urls %}
+
+          <tr>
+            <td>
+              <div class="url-info">
+                <img
+                  src="https://www.google.com/s2/favicons?domain={{ url.original_url }}&sz=64"
+                  class="favicon"
+                />
+
+                <span>
+                  {{ url.original_url[:45] }} {% if url.original_url|length > 45
+                  %} ... {% endif %}
+                </span>
+              </div>
+            </td>
+
+            <td>
+              <a
+                href="/{{ url.short_code }}"
+                target="_blank"
+                class="short-link"
+              >
+                {{ request.host_url }}{{ url.short_code }}
+              </a>
+            </td>
+
+            <td>
+              <span class="click-badge"> {{ url.clicks }} </span>
+            </td>
+
+            <td>
+              <div class="table-actions">
+                <button
+                  class="action-btn copy-action"
+                  onclick="copyTopLink('{{ request.host_url }}{{ url.short_code }}')"
+                >
+                  <i class="bi bi-copy"></i>
+                </button>
+
+                <a
+                  href="/{{ url.short_code }}"
+                  target="_blank"
+                  class="action-btn"
+                >
+                  <i class="bi bi-box-arrow-up-right"></i>
+                </a>
+
+                <button
+                  class="action-btn delete-btn"
+                  onclick="openDeleteModal('/delete/{{ url.id }}')"
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
