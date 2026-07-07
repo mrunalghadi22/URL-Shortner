@@ -1,12 +1,11 @@
 import os
-import secrets
-
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
-    SECRET_KEY=secrets.token_hex(16)
+    SECRET_KEY = os.environ.get("SECRET_KEY", "shortly-secret-key")
 
-    SQLALCHEMY_DATABASE_URI = \
-        "sqlite:///" + os.path.join(BASE_DIR, "instance", "urls.db")
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        "DATABASE_URL",
+        "sqlite:///database.db"
+    )
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
